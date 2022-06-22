@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Recipe</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="./stylesheets/styles.css"/>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <nav>
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo">Recipe app</applet></a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="">Recipe 1</a></li>
+            <li><a href="">Recipe 2</a></li>
+            <li><a href="">Recipe 3</a></li>
+          </ul>
+        </div>
+      </nav>
+    <div class="container">
+    <div class="col">
+    <h2>Recipe</h2>
+    <h2 id = recipename></h2>
+    <h3>Ingredients</h3>
+    <h4 id = reciepeIngredients></h4>
+    <h3>instructions</h3>
+    <h4 id = recipeInstructions></h4>
+    </div>
+    <div class="col">
+    
+    <label for="name-text">name</label>
+    <input type="text" id="name-text" name="name">
+    <h4>Ingredients</h4>
+    <div class="row">
+          <form class="col s12">
+              <div class="row">
+              <div class="input-field col s12" id="addIng">
+                <textarea id="ingredients-text" name="ingredients" class="ing-newline0"class="materialize-textarea"  data-length="120"></textarea>
+                <label for="ingredients-text">Ingredients</label>
+              </div>
+            </div>
+            </form>
+        <button class="btn" id="add-ingredient" type="button">Add ingredient</button>
+      
+    <h4>instructions</h4>
+    <div class="row">
+          <form class="col s12">
+              <div class="row">
+              <div class="input-field col s12" id="addInst">
+                <textarea id="instructions-text" name="instructions" class="ins-newline0" class="materialize-textarea" data-length="120"></textarea>
+                <label for="instructions-text">Instructions</label>
+              </div>
+            </div>
+            </form>
+        <button class="btn" id="add-instruction" type="button">Add instruction</button>
+    
+    </form>
+    
+        
+            <div class="file-field input-field">
+                <label for="image-input">Upload your photos</label><br><br><br>
+              <div class="btn">
+                
+                <span>Your photos to upload</span>
+                
+                
+                <input type="file" id="image-input"accept="image/png, image/jpeg" multiple>
+                
+              </div>
+              <div class="file-path-wrapper">
+                <br><br><br>
+                <input class="file-path validate" type="text" placeholder="Upload one or more files">
+              </div>
+            </div>
+          </form>
+        
+
+    <br><br><br>
+    <button class="btn" id="submit" type="submit" >Submit</button>
+
+    
+    
+    </div>
+    </div>
+    <script src="./js/recipe.js"></script>
+    </body>
+</html>

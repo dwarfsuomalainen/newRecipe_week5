@@ -1,0 +1,69 @@
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Recipe app</applet></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="sass.html">{{name}}</a></li>
+        <li><a href="badges.html">{{name}}</a></li>
+        <li><a href="collapsible.html">{{name}}</a></li>
+      </ul>
+    </div>
+  </nav>
+<div class="container">
+<div class="col">
+<h2>{{title}}</h2>
+<h2>{{name}}</h2>
+<h3>Ingredients</h3>
+<h4>{{ingredients}}</h4>
+<h3>instructions</h3>
+<h4>{{instructions}}</h4>
+</div>
+<div class="col">
+<label for="name-text">name</label>
+<input type="text" id="name-text">
+<h4>Ingredients</h4>
+<div class="row">
+      <form class="col s12">
+          <div class="row">
+          <div class="input-field col s12">
+            <textarea id="ingredients-text" class="materialize-textarea" id="ingredients-text" data-length="120"></textarea>
+            <label for="ingredients-text">Ingredients</label>
+          </div>
+        </div>
+        </form>
+    <button class="btn" id="add-ingredient" type="button">Add ingredient</button>
+  
+<h4>instructions</h4>
+<div class="row">
+      <form class="col s12">
+          <div class="row">
+          <div class="input-field col s12">
+            <textarea id="instructions-text" class="materialize-textarea" id="add-instruction" data-length="120"></textarea>
+            <label for="add-instructions">Instructions</label>
+          </div>
+        </div>
+        </form>
+    <button class="btn" id="add-instruction" type="button">Add instruction</button>
+
+
+<form action="#">
+<label for="image-input">Upload your photo:</label>
+  <form action="#">
+    <div class="file-field input-field">
+      <div class="btn">
+        <span>Upload photo</span>
+        <input type="file" id="image-input" accept="image/png, image/jpeg" multiple>
+      </div>
+      <div class="file-path-wrapper">
+    </div>
+  </form>
+<br><br><br>
+</form>
+<button class="btn" id="submit" type="submit">Submit</button>
+</div>
+</div>
+
+
+
+
+
+

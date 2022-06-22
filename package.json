@@ -1,0 +1,35 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "express-fileupload": "^1.4.0",
+    "express-form-data": "^2.0.18",
+    "express-handlebars": "^6.0.6",
+    "jquery": "^3.6.0",
+    "loadsh": "^0.0.4",
+    "lodash": "^4.17.21",
+    "materialize-css": "^1.0.0-rc.2",
+    "mongo": "^0.1.0",
+    "mongoose": "^6.4.0",
+    "morgan": "^1.10.0",
+    "uuid": "^8.3.2"
+  },
+  "scripts": {
+    "start": "node ./server.js",
+    "dev": "nodemon ./server.js"
+  },
+  "name": "newrecipe",
+  "version": "1.0.0",
+  "description": "recipe book",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dwarfsuomalainen/newRecipe.git"
+  },
+  "author": "Roman Bogoudinov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dwarfsuomalainen/newRecipe/issues"
+  },
+  "homepage": "https://github.com/dwarfsuomalainen/newRecipe#readme"
+}
