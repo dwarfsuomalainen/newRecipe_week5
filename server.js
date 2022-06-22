@@ -39,7 +39,6 @@ app.use(bodyParser.json());
     ingredients : recipes[0].ingredients ,
     instructions : recipes[0].instructions
     }));*/
-
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'));
         });
