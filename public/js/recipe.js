@@ -192,4 +192,5 @@ document.getElementById("submit").addEventListener('click', async (event) => { e
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({name: RecipeName.value, ingredients: ingrArr, instructions: insArr})
     });
+    //console.log(res.body.name);
 });

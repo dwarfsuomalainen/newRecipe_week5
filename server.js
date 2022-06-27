@@ -21,7 +21,7 @@ const mongoDB = "mongodb://127.0.0.1:27017/testdb";
 mongoose.connect(mongoDB);
 mongoose.Promise = Promise;
 const db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB console error"));
+db.on("error", console.error.bind(console, "MongoDB connection error"));
 
 
 //handlebars
@@ -55,30 +55,35 @@ app.get('/recipe/:food', (req, res)=> {
 
 app.post('/recipe/', (req, res, next)=> {
 
-    Recipes.find({name:req.body.name}, (err, name) => {
+    Recipes.findOne({name: req.body.name}, (err, name) => {
         if(err) return next(err);
         if(!name){
+                console.log(name);
                 new Recipes({name: req.body.name,
                             ingredients: req.body.ingredients,
-                            instructions: req.body.instructions}).save((err) => {
+                            instructions: req.body.instructions
+                            }).save((err) => {
                                 if(err) return next (err);
                                 return res.send(req.body);
-                            });      } else { return res.status(403).send("This recipe already present");
+                            });      
+        } else { return res.status(403).send("This recipe already present");
     }
     })
+ //console.log(req.body.name);   
+/*
 
 
 
-    /*'const newRecipe = {
+    const newRecipe = {
      name: req.body.name,
     ingredients: req.body.ingredients,
     instructions: req.body.instructions } 
    recipes.push(newRecipe);
    //res.json(recipes);
    res.send(newRecipe);
-   console.log(req.body);
-   //res.redirect('/');*/
-   //res.send(req.body);
+   console.log(req.body.name);
+   //res.redirect('/');
+   //res.send(req.body);*/
    
 })
 
