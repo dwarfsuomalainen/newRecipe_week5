@@ -15,9 +15,9 @@ const fileUpload = require('express-fileupload');
 const { data } = require("jquery");
 const _ = require('lodash');
 const bodyParser = require('body-parser');
-const Recipes = require("../models/Recipes");
+const Recipes = require("./models/Recipes");
 const connect = require("http2");
-const mongoDB = "mongodb://localhost:27017/testdb";
+const mongoDB = "mongodb://127.0.0.1:27017/testdb";
 mongoose.connect(mongoDB);
 mongoose.Promise = Promise;
 const db = mongoose.connection;
@@ -78,7 +78,7 @@ app.post('/recipe/', (req, res, next)=> {
    res.send(newRecipe);
    console.log(req.body);
    //res.redirect('/');*/
-   res.send(req.body);
+   //res.send(req.body);
    
 })
 
