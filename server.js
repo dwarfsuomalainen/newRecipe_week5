@@ -22,7 +22,7 @@ mongoose.connect(mongoDB);
 mongoose.Promise = Promise;
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error"));
-
+let recipesS = [];
 
 //handlebars
 const app = express();
@@ -45,11 +45,21 @@ app.get('/', (req, res) => {
 //static folder 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/recipe/:food', (req, res)=> {
-    res.json({name: req.params.food, ingredients: recipes[0].ingredients, instructions: recipes[0].instructions});
-    //res.json(recipes.filter(recipes => recipes.name === req.params.food));
+app.get('/recipe/:food', (req, res, next)=> {
+    const nameSEARCH = req.params.name
+    Recipes.find({name: new RegExp(nameSEARCH, "i")}, (err, name) => {
+        if (err) return next(err);
+        if (name.length > 0) {return res.send(req.body)}
+    else { res.status(404).send("There is no recipies of "+ nameSEARCH +" in a cookBook");
+}
+});
+
     
 })
+    
+    //res.json({name: req.params.food, ingredients: recipes[0].ingredients, instructions: recipes[0].instructions});
+    //res.json(recipes.filter(recipes => recipes.name === req.params.food));
+    
 
 // create a recipe
 
