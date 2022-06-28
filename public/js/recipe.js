@@ -1,3 +1,5 @@
+//const { method } = require("lodash");
+
 //const { allowedNodeEnvironmentFlags } = require("process");
 let recipe_fetched = document.createElement('div');
 
@@ -209,7 +211,8 @@ if (k.key === 'Enter')
 });
 
 async function search(x){
-let findRecipe = await fetch('/recipe/:x');
+let findRecipe = await fetch('/recipe/:x', {
+    method: "GET"});
 console.log(findRecipe + "search");
 let recipeFromDB = findRecipe.json();
 console.log(recipeFromDB);
