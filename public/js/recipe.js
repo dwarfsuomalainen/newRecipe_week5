@@ -210,8 +210,8 @@ if (k.key === 'Enter')
 }
 });
 
-async function search(x){
-let findRecipe = await fetch('/recipe/:x', {
+async function search(food){
+let findRecipe = await fetch('/recipe/:food', {
     method: "GET"});
 console.log(findRecipe + "search");
 let recipeFromDB = findRecipe.json();

@@ -46,9 +46,9 @@ app.get('/', (req, res) => {
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/recipe/:food', (req, res, next)=> {
-    const nameSEARCH = req.params.name;
-    console.log(nameSEARCH);
-    console.log(req.body);
+    const nameSEARCH = req.params.food;
+    console.log(nameSEARCH + "line 50");
+    console.log(req.body + "line51");
     Recipes.find({name: new RegExp(nameSEARCH, "i")}, (err, name) => {
         if (err) return next(err);
         if (name.length > 0) {return res.send(req.body)}
