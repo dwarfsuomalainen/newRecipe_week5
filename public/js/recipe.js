@@ -8,7 +8,7 @@ if(document.readyState !== "loading") {
 }
 
 function init(){
-//fetchPasta();
+fetchPasta();
 
 
 /*let page_h = document.createElement("h1");
@@ -61,7 +61,7 @@ newRecipeSubmit.innerText = 'Submit';
 newRecipeDiv.appendChild(newRecipeSubmit);*/
 
 }
-/*async function fetchPasta() {
+async function fetchPasta() {
 let getPasta = await fetch('/recipe/pasta');
 let recipePasta = await getPasta.json();
 console.log(recipePasta);
@@ -70,7 +70,7 @@ let ingredientsI = recipePasta.ingredients;
 let instructionsI = recipePasta.instructions;
 
 toIndex(nameI, ingredientsI, instructionsI);
-} */
+} 
 function toIndex(x,y,p) {
 let recipeName = document.getElementById('recipename');
 recipeName.innerHTML = x;
@@ -208,13 +208,11 @@ if (k.key === 'Enter')
 }
 });
 
-async function search(dbRecipe){
-let findRecipe = await fetch('/recipe/:dbRecipe');
+async function search(x){
+let findRecipe = await fetch('/recipe/:x');
+console.log(findRecipe + "search");
 let recipeFromDB = findRecipe.json();
 console.log(recipeFromDB);
 
 toIndex(recipeFromDB.name,recipeFromDB.ingredients,recipeFromDB.instructions);
-
-
-
 }
