@@ -1,4 +1,6 @@
-//const { method } = require("lodash");
+//const { json, response } = require("express");
+//const { data } = require("jquery");
+
 
 //const { allowedNodeEnvironmentFlags } = require("process");
 let recipe_fetched = document.createElement('div');
@@ -204,18 +206,29 @@ let bar = document.getElementById('search');
 bar.addEventListener('keypress', function(k){
 if (k.key === 'Enter')
 {
+    
     console.log(bar.value);
     let c = bar.value;
+    k.preventDefault();
     search(c);
+    bar.value = "";
+
+    
 }
 });
 
 async function search(food){
-let findRecipe = await fetch('/recipe/:food', {
-    method: "GET"});
-console.log(findRecipe + "search");
-let recipeFromDB = findRecipe.json();
-console.log(recipeFromDB);
+   /* let form = document.getElementById('formSearch');
+    form.addEventListener('submit', function(event){
+    event.preventDefault();
+   
+})*/
+let findRecipe = await fetch('/recipe/'+ food, {
+    method: "GET",
+    headers: {'content-type': 'application/json'}})
+    .then(response => response.json());
 
-toIndex(recipeFromDB.name,recipeFromDB.ingredients,recipeFromDB.instructions);
+
+console.log(findRecipe[0].name);
+toIndex(findRecipe[0].name,findRecipe[0].ingredients,findRecipe[0].instructions);
 }

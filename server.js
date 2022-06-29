@@ -46,12 +46,13 @@ app.get('/', (req, res) => {
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/recipe/:food', (req, res, next)=> {
-    const nameSEARCH = req.params.food;
-    console.log(nameSEARCH + "line 50");
-    console.log(req.body + "line51");
-    Recipes.find({name: new RegExp(nameSEARCH, "i")}, (err, name) => {
+    let nameSEARCH = req.params.food;
+    console.log(nameSEARCH + " line 50");
+    //console.log(req.body + "line51");
+    Recipes.find({name: nameSEARCH}, (err, name) => {
+        //console.log(nameSEARCH + " line 53");
         if (err) return next(err);
-        if (name.length > 0) {return res.send(req.body)}
+        if (name.length > 0) {return res.json(name)}
     else { res.status(404).send("There is no recipies of "+ nameSEARCH +" in a cookBook");
 }
 });
