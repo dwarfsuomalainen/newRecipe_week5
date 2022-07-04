@@ -20,7 +20,7 @@ const connect = require("http2");
 const mongoDB = "mongodb://127.0.0.1:27017/testdb";
 mongoose.connect(mongoDB);
 mongoose.Promise = Promise;
-const db = mongoose.connection;
+const db = mongoose.connection;   
 db.on("error", console.error.bind(console, "MongoDB connection error"));
 let recipesS = [];
 
@@ -39,6 +39,14 @@ app.use(bodyParser.json());
     ingredients : recipes[0].ingredients ,
     instructions : recipes[0].instructions
     }));*/
+
+
+ // categories for recipes 
+ //db.createCollection("category",{
+ //   name: String}
+ // )
+ 
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'));
         });

@@ -76,13 +76,13 @@
         <button class="btn" id="add-instruction" type="button">Add instruction</button>
     
     </form>
-    
-        
+
+
             <div class="file-field input-field">
-                <label for="image-input">Upload your photos</label><br><br><br>
+                <label for="image-input"></label><br><br><br>
               <div class="btn">
                 
-                <span>Your photos to upload</span>
+                <span>Open camera</span>
                 
                 
                 <input type="file" id="image-input"accept="image/png, image/jpeg" multiple>
@@ -95,6 +95,35 @@
             </div>
           </form>
         
+
+<!--Categories of recipies-->
+<label for="catForm ">Categories</label>
+<form action="#" id="catForm" name="Categories">
+  <p>
+    <label>
+      <input type="checkbox" name="category" id="catOne" onclick="disableCheckBox(this)"/>
+      <span></span>
+    </label>
+  </p>
+  <p>
+    <label>
+      <input type="checkbox" name="category" id="catTwo" onclick="disableCheckBox(this)"/>
+      <span></span>
+    </label>
+  </p>
+  <p>
+    <label>
+      <input type="checkbox" name="category" id="catThree"onclick="disableCheckBox(this)"/>
+      <span></span>
+    </label>
+  </p>
+  
+</form>
+
+
+
+
+
 
     <br><br><br>
     <button class="btn" id="submit" type="submit" >Submit</button>

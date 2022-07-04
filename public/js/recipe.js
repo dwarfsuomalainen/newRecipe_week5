@@ -65,13 +65,15 @@ newRecipeSubmit.innerText = 'Submit';
 newRecipeDiv.appendChild(newRecipeSubmit);*/
 
 }
+
 async function fetchPasta() {
 let getPasta = await fetch('/recipe/pasta');
 let recipePasta = await getPasta.json();
 console.log(recipePasta);
-let nameI = recipePasta.name;
-let ingredientsI = recipePasta.ingredients;
-let instructionsI = recipePasta.instructions;
+let nameI = (recipePasta[0].name);
+//console.log(nameI);
+let ingredientsI = recipePasta[0].ingredients;
+let instructionsI = recipePasta[0].instructions;
 
 toIndex(nameI, ingredientsI, instructionsI);
 } 
@@ -85,8 +87,6 @@ recipeInstr.innerHTML = p;
 
 
 }
-//console.log(recipePasta[0].name);
-
 let btn = document.getElementById("add-ingredient");
 console.log(btn);
 btn.addEventListener('click', addIngredient);
@@ -101,35 +101,6 @@ function addIngredient(){
     {ingrArr.push(RecipeIngredients.value);
     RecipeIngredients.value = "";
     console.log(ingrArr);}
-
-
-    /*for (let count = 0; count >= ingrArr.length; count++){ 
-    let RecipeIngredients = document.getElementById("ingredients-text"+(count));
-    console.log(RecipeIngredients.value)
-    console.log(ingrArr);
-    ingrArr.push(RecipeIngredients.value);
-    if (ingrArr.length > 0) {
-    if (RecipeIngredients.value === "") { console.log('empty string');}
-        else {
-        let addIngLine = document.getElementById('addIng');
-        console.log(addIngLine);
-        addIngLine.classList.add = 'materialize-textarea';
-       let textarea1 = document.createElement('textarea')
-       textarea1.setAttribute("id","ingredients-text"+ [ingrArr.length]);
-       addIngLine.appendChild(textarea1);
-    
-       console.log(addIngLine);
-       console.log(ingrArr); 
-         }} else {return;}                            
-        }
-        
-    
-    //for (let count = 0; count < RecipeIngredients; count++){ }
-  */
-
-
-
-
 }
 
 let btn2 = document.getElementById("add-instruction");
@@ -146,26 +117,7 @@ function addInstruction(){
     {insArr.push(RecipeInstructions.value);
     RecipeInstructions.value = "";
     console.log(insArr);}
-
-
-    /*let RecipeInstructions = document.querySelector(".ins-newline"+[insArr.length]);
-    console.log(RecipeInstructions.value);
-    console.log(insArr);
-    insArr.push(RecipeInstructions.value);
-    if (insArr.length > 0) {
-        if (RecipeInstructions.value === "") { console.log('empty string');}
-            else { 
-            console.log(insArr);
-            let addIngLine1 = document.getElementById('addInst');
-            console.log(addIngLine1);
-            addIngLine1.classList.add = 'materialize-textarea';
-           let textarea2 = document.createElement('textarea')
-           textarea2.setAttribute('class','ins-newline'+ [insArr.length]);
-           addIngLine1.appendChild(textarea2);
-        
-           console.log(addIngLine1);
-           console.log(insArr); 
-             }} else {return;}*/                   
+         
 }
 
 let submitUpload = document.getElementById('submit');
@@ -196,39 +148,50 @@ document.getElementById("submit").addEventListener('click', async (event) => { e
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({name: RecipeName.value, ingredients: ingrArr, instructions: insArr})
     });
-    //console.log(res.body.name);
 });
 
 
 // Search a recipe in a DB
-
 let bar = document.getElementById('search');
 bar.addEventListener('keypress', function(k){
 if (k.key === 'Enter')
 {
-    
     console.log(bar.value);
     let c = bar.value;
     k.preventDefault();
     search(c);
-    bar.value = "";
-
-    
+    bar.value = "";   
 }
 });
-
 async function search(food){
-   /* let form = document.getElementById('formSearch');
-    form.addEventListener('submit', function(event){
-    event.preventDefault();
-   
-})*/
 let findRecipe = await fetch('/recipe/'+ food, {
     method: "GET",
     headers: {'content-type': 'application/json'}})
     .then(response => response.json());
-
-
 console.log(findRecipe[0].name);
 toIndex(findRecipe[0].name,findRecipe[0].ingredients,findRecipe[0].instructions);
+}
+
+
+// Categories 
+
+function disableCheckBox(catName){
+    console.log("Checkbox disabled")
+    let nameCat = document.getElementsByName(catName.name)
+    let checked = document.getElementById(catName.id)
+
+    if (checked.checked) {
+        for(let i=0; i < nameCat.length; i++){
+            if(!nameCat[i].checked){
+                nameCat[i].disabled = true;
+            }else{
+                nameCat[i].disabled = false;
+            }
+        }
+    }
+    else {
+        for(let i=0; i < nameCat.length; i++){
+            nameCat[i].disabled = false;
+        }
+    }
 }
