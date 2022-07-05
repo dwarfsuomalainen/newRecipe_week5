@@ -11,7 +11,3 @@ let recipeShema = new Schema({
 
 module.exports = mongoose.model("Recipes", recipeShema);
 
-/*let categorySchema = new Schema({
-    name: String
-});
-module.exports = mongoose.model("category", categorySchema);*/
