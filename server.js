@@ -154,8 +154,8 @@ app.get('/category/', (req, res, next)=>{
         if (name.length > 0) {return res.json(name)}
         else { res.status(404).send("ERROR");
         res.send(res.body);
-        console.log(res.body);
-         console.log(res.json() + "line 154");
+        console.log(res.body + "line 157");
+        //console.log(res.json());
     }});
    
 
