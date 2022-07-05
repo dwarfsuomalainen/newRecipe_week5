@@ -88,8 +88,6 @@ let recipeIngr = document.getElementById('reciepeIngredients');
 recipeIngr.innerHTML = y;
 let recipeInstr = document.getElementById('recipeInstructions');
 recipeInstr.innerHTML = p;
-
-
 }
 let btn = document.getElementById("add-ingredient");
 console.log(btn);
@@ -210,6 +208,19 @@ async function fetchCategory() {
     //let catJson = categoryRec.json();
     //console.log(catJson);
     console.log(categoryRec);
+    //for (let i=0; i < categoryRec.length; i++) {
+        for (var count in categoryRec) {
+        let catChk = document.getElementById("catForm");
+        let chkBox = document.createElement("input");
+        chkBox.type = 'checkbox';
+        chkBox.value = categoryRec[count].name + '<br/>';
+        chkBox.appendChild(document.createElement('span'));
+        catChk.appendChild(chkBox);
+
+        console.log(catChk);
+        //console.log(chkBox);
+     
+    }
     let catOne = document.getElementById("catOne");
     //catOne.innerHTML = catJson.name;
 
