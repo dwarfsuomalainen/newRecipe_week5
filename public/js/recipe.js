@@ -211,12 +211,29 @@ async function fetchCategory() {
     //for (let i=0; i < categoryRec.length; i++) {
         for (var count in categoryRec) {
         let catChk = document.getElementById("catForm");
+        console.log(catChk);
+        catChk.setAttribute("style", "color: green ; font-size: 150%");
+        //let btn22 = document.createElement('button');
         let chkBox = document.createElement("input");
+        chkBox.setAttribute("onclick","disableCheckBox(this)");
         chkBox.type = 'checkbox';
+        let lbl = document.createElement("label");
+        chkBox.id = "cat"+[count];
+        lbl.setAttribute ("for", "cat"+[count]);
+        lbl.innerHTML = "category!"
+        chkBox.appendChild(lbl);
         chkBox.value = categoryRec[count].name + '<br/>';
-        chkBox.appendChild(document.createElement('span'));
+        let span1 = document.createElement('span');
+        span1.innerHTML = categoryRec[count].name;
+        chkBox.appendChild(span1);
+        //catChk.getElementsByTagName('span').innerHTML = categoryRec[count].name;
         catChk.appendChild(chkBox);
+        //catChk.getElementsByTagName("span").innerHTML = categoryRec[count].name;
+        let divchk = document.getElementById("chkDiv");
+        console.log(divchk);
+        divchk.appendChild(catChk);
 
+       
         console.log(catChk);
         //console.log(chkBox);
      

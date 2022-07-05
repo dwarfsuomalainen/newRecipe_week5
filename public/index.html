@@ -4,7 +4,7 @@
 <head>
     <title>Recipe</title>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" type="text/css" href="./stylesheets/styles.css"/>
+    
     
     <meta name="viewport" content="width=device-width, initial-scale=1" />
      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -13,7 +13,7 @@
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
-
+<script src="./js/recipe.js"></script>
 <body>
 
     <script type="text/javascript" src="js/materialize.min.js"></script>
@@ -78,7 +78,7 @@
     </form>
 
 
-            <div class="file-field input-field">
+            <div class="file-field-input">
                 <label for="image-input"></label><br><br><br>
               <div class="btn">
                 
@@ -117,11 +117,14 @@
       <span></span>
     </label>
   </p>-->
+<div id="chkDiv"> 
 <label for="catForm ">Categories</label>
 <form id="catForm" name="Categories">
-
+  <label for="catThree">checkbox</label>
+    <input type="checkbox" name="category" id="catThree" onclick="disableCheckBox(this)"/>
+    <span>catatatatta</span>
 </form>
-
+</div>
 
 
 
@@ -134,6 +137,6 @@
     
     </div>
     </div>
-    <script src="./js/recipe.js"></script>
+    <link rel="stylesheet" type="text/css" href="./stylesheets/styles.css"/>
     </body>
 </html>
