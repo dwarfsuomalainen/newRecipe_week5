@@ -1,5 +1,8 @@
 //const { json, response } = require("express");
 //const { data } = require("jquery");
+//const parseJSON  = require("jquery");
+
+//const { application, response } = require("express");
 
 
 //const { allowedNodeEnvironmentFlags } = require("process");
@@ -13,6 +16,7 @@ if(document.readyState !== "loading") {
 
 function init(){
 fetchPasta();
+fetchCategory();
 
 
 /*let page_h = document.createElement("h1");
@@ -194,4 +198,18 @@ function disableCheckBox(catName){
             nameCat[i].disabled = false;
         }
     }
+}
+
+async function fetchCategory() {
+
+    let categoryRec = await fetch('/category/',{
+        method: "GET",
+        headers: {'content-type': 'application/json'}})
+        .then(response => response.json());
+    //let catJson = categoryRec.json();
+    //console.log(catJson);
+    console.log(categoryRec);
+    let catOne = document.getElementById("catOne");
+    //catOne.innerHTML = catJson.name;
+
 }

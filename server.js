@@ -23,6 +23,7 @@ mongoose.Promise = Promise;
 const db = mongoose.connection;   
 db.on("error", console.error.bind(console, "MongoDB connection error"));
 let recipesS = [];
+const Category = require("./models/Category");
 
 //handlebars
 const app = express();
@@ -56,9 +57,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/recipe/:food', (req, res, next)=> {
     let nameSEARCH = req.params.food;
     console.log(nameSEARCH + " line 50");
-    //console.log(req.body + "line51");
     Recipes.find({name: nameSEARCH}, (err, name) => {
-        //console.log(nameSEARCH + " line 53");
         if (err) return next(err);
         if (name.length > 0) {return res.json(name)}
     else { res.status(404).send("There is no recipies of "+ nameSEARCH +" in a cookBook");
@@ -146,7 +145,20 @@ app.post('/images', async (req, res)=> {
 })
     
 
+// Categories 
+app.get('/category/', (req, res, next)=>{
 
+    Category.find({}, (err,name) => {
+        if (err) return next(err);
+        if (name.length > 0) {return res.json(name)}
+        else { res.status(404).send("ERROR");
+        res.send(res.body);
+        console.log(res.body);
+         console.log(res.json() + "line 154");
+    }});
+   
+
+})
 
 const port = process.env.port || 1234;
 
