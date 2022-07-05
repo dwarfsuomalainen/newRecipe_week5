@@ -130,7 +130,7 @@ submitUpload.addEventListener('click', uploadPhoto,);
 async function uploadPhoto(){
   
 let formData = new FormData();
-let photos = document.getElementById('image-input');
+let photos = document.getElementById('camera-file-input');
 let files = photos.files;
 for (let img=0; img < files.length; img++) {
 console.log(files);
@@ -152,6 +152,7 @@ document.getElementById("submit").addEventListener('click', async (event) => { e
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({name: RecipeName.value, ingredients: ingrArr, instructions: insArr})
     });
+    RecipeName.value = "";
 });
 
 
