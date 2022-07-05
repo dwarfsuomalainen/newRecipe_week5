@@ -16,6 +16,7 @@ const { data } = require("jquery");
 const _ = require('lodash');
 const bodyParser = require('body-parser');
 const Recipes = require("./models/Recipes");
+const Category = require("./models/Category");
 const connect = require("http2");
 const mongoDB = "mongodb://127.0.0.1:27017/testdb";
 mongoose.connect(mongoDB);
@@ -23,7 +24,7 @@ mongoose.Promise = Promise;
 const db = mongoose.connection;   
 db.on("error", console.error.bind(console, "MongoDB connection error"));
 let recipesS = [];
-const Category = require("./models/Category");
+
 
 //handlebars
 const app = express();
