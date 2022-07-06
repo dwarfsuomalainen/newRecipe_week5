@@ -78,9 +78,9 @@ let nameI = (recipePasta[0].name);
 //console.log(nameI);
 let ingredientsI = recipePasta[0].ingredients;
 let instructionsI = recipePasta[0].instructions;
-
 toIndex(nameI, ingredientsI, instructionsI);
 } 
+
 function toIndex(x,y,p) {
 let recipeName = document.getElementById('recipename');
 recipeName.innerHTML = x;
@@ -89,11 +89,13 @@ recipeIngr.innerHTML = y;
 let recipeInstr = document.getElementById('recipeInstructions');
 recipeInstr.innerHTML = p;
 }
+
+
 let btn = document.getElementById("add-ingredient");
 console.log(btn);
 btn.addEventListener('click', addIngredient);
-
 let ingrArr = [];
+
 function addIngredient(){
 
     let RecipeIngredients = document.getElementById("ingredients-text");
@@ -108,8 +110,8 @@ function addIngredient(){
 let btn2 = document.getElementById("add-instruction");
 console.log(btn2);
 btn2.addEventListener('click', addInstruction);
-
 let insArr = [];
+
 function addInstruction(){
 
     let RecipeInstructions = document.getElementById("instructions-text");
@@ -118,8 +120,7 @@ function addInstruction(){
     else
     {insArr.push(RecipeInstructions.value);
     RecipeInstructions.value = "";
-    console.log(insArr);}
-         
+    console.log(insArr);}       
 }
 
 let submitUpload = document.getElementById('submit');
@@ -145,12 +146,15 @@ document.getElementById("submit").addEventListener('click', async (event) => { e
     let RecipeName = document.getElementById('name-text');
     console.log(ingrArr);
     console.log(insArr);
+    console.log(categories);
     const res = await fetch('/recipe/', {
         method: 'POST',
         headers: {'content-type': 'application/json'},
-        body: JSON.stringify({name: RecipeName.value, ingredients: ingrArr, instructions: insArr})
+        body: JSON.stringify({name: RecipeName.value, ingredients: ingrArr, instructions: insArr, categories: categories})
     });
     RecipeName.value = "";
+    categories.value = "";
+
 });
 
 
@@ -178,7 +182,8 @@ toIndex(findRecipe[0].name,findRecipe[0].ingredients,findRecipe[0].instructions)
 
 // Categories 
 
-function disableCheckBox(catName){
+// this function disables other checkboxes if one is picked
+/*function disableCheckBox(catName){
     console.log("Checkbox disabled")
     let nameCat = document.getElementsByName(catName.name)
     let checked = document.getElementById(catName.id)
@@ -197,8 +202,8 @@ function disableCheckBox(catName){
             nameCat[i].disabled = false;
         }
     }
-}
-
+}*/
+let categories = [];
 async function fetchCategory() {
 
     let categoryRec = await fetch('/category/',{
@@ -218,7 +223,23 @@ async function fetchCategory() {
         chkBox.type="checkbox";
         chkBox.name="category";
         chkBox.id = "cat"+[count];
-        chkBox.setAttribute("onclick","disableCheckBox(this)");
+        let idCat = categoryRec[count]._id;
+        console.log(idCat);
+        
+        
+        chkBox.addEventListener("change", (event) => {
+            if (chkBox.checked) { categories.push(idCat).value;
+                console.log(categories);
+            } else {
+            console.log("not checked");
+            console.log(idCat);
+            return;}
+            
+        })
+       
+        //chkBox.setAttribute("change","checkedCategories(this)");
+       
+        //chkBox.setAttribute("onclick","disableCheckBox(this)"); // - related to function disableCheckBox
         let span1 = document.createElement('span');
         let catN = categoryRec[count].name;
         console.log(catN);
@@ -227,31 +248,14 @@ async function fetchCategory() {
         lbl.appendChild(chkBox);
         lbl.appendChild(span1);
         catChk.appendChild(pCat);
-
-
-        //catChk.setAttribute("style", "color: green ; font-size: 150%");
-        //let btn22 = document.createElement('button');
-        /*lbl.setAttribute ("for", "cat"+[count]);
-        lbl.innerHTML = "category!";
-        let chkBox = document.createElement('input');
-        chkBox.setAttribute("onclick","disableCheckBox(this)");
-        chkBox.type = 'checkbox';
-        chkBox.id = "cat"+[count];
-        catChk.appendChild(lbl);
-        chkBox.value = categoryRec[count].name + '<br/>';
-        let span1 = document.createElement('span');
-        span1.innerHTML = categoryRec[count].name;
-        chkBox.appendChild(span1);
-        //catChk.getElementsByTagName('span').innerHTML = categoryRec[count].name;
-        catChk.appendChild(chkBox);
-        //catChk.getElementsByTagName("span").innerHTML = categoryRec[count].name;
-        let divchk = document.getElementById("chkDiv");
-        console.log(divchk);
-        divchk.appendChild(catChk);*
-        console.log(chkBox);*/
-     
+    
     }
-    let catOne = document.getElementById("catOne");
-    //catOne.innerHTML = catJson.name;
+        /*function checkedCategories(CatToList) {
+        
+            let nameCat = document.getElementsByName(CatToList.name)
+            let checked = document.getElementById(CatToList.id)
+
+
+        }*/
 
 }
