@@ -131,6 +131,7 @@ async function uploadPhoto(){
 let formData = new FormData();
 let photos = document.getElementById('camera-file-input');
 let files = photos.files;
+
 for (let img=0; img < files.length; img++) {
 console.log(files);
 formData.append("images", files[img]);
@@ -147,16 +148,42 @@ document.getElementById("submit").addEventListener('click', async (event) => { e
     console.log(ingrArr);
     console.log(insArr);
     console.log(categories);
+    checked();
     const res = await fetch('/recipe/', {
         method: 'POST',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify({name: RecipeName.value, ingredients: ingrArr, instructions: insArr, categories: categories})
     });
     RecipeName.value = "";
-    categories.value = "";
+    categories = [];
+    uncheck();
 
 });
+// this function clears the checkboxes on Submit
+function uncheck() {
+    let box = document.querySelectorAll('.checkbox');
+    console.log(box);
+    for (let i=0; i< box.length; i++ ) {
+        if (box[i].checked = true) { 
+            box[i].checked = false;}
+             else {return;}
+    }
+}
 
+// this function creates list of id's of categories for the POST new recipe
+    let categories = [];
+    function checked() {
+    let boxes = document.querySelectorAll('.checkbox');
+    console.log(boxes);
+    for (let i=0; i< boxes.length; i++ ) {
+        if (boxes[i].checked === true) { 
+            console.log(categories);
+            let value1 = boxes[i].id;
+            categories.push(value1);
+        console.log(categories); }
+             else {console.log("not checked");}
+    }
+}
 
 // Search a recipe in a DB
 let bar = document.getElementById('search');
@@ -203,7 +230,7 @@ toIndex(findRecipe[0].name,findRecipe[0].ingredients,findRecipe[0].instructions)
         }
     }
 }*/
-let categories = [];
+
 async function fetchCategory() {
 
     let categoryRec = await fetch('/category/',{
@@ -221,13 +248,15 @@ async function fetchCategory() {
         let lbl = document.createElement("label");
         let chkBox = document.createElement('input');
         chkBox.type="checkbox";
+        chkBox.classList.add("checkbox");
         chkBox.name="category";
-        chkBox.id = "cat"+[count];
-        let idCat = categoryRec[count]._id;
-        console.log(idCat);
+        chkBox.id=categoryRec[count]._id;
+        //chkBox.id = "cat"+[count];
+        //let idCat = categoryRec[count]._id;
+        //console.log(idCat);
         
         
-        chkBox.addEventListener("change", (event) => {
+        /*chkBox.addEventListener("change", (event) => {
             if (chkBox.checked) { categories.push(idCat).value;
                 console.log(categories);
             } else {
@@ -235,10 +264,9 @@ async function fetchCategory() {
             console.log(idCat);
             return;}
             
-        })
+        })*/
        
-        //chkBox.setAttribute("change","checkedCategories(this)");
-       
+               
         //chkBox.setAttribute("onclick","disableCheckBox(this)"); // - related to function disableCheckBox
         let span1 = document.createElement('span');
         let catN = categoryRec[count].name;
@@ -250,12 +278,7 @@ async function fetchCategory() {
         catChk.appendChild(pCat);
     
     }
-        /*function checkedCategories(CatToList) {
-        
-            let nameCat = document.getElementsByName(CatToList.name)
-            let checked = document.getElementById(CatToList.id)
+       
 
-
-        }*/
 
 }

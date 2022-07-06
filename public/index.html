@@ -82,10 +82,14 @@
                 <label for="camera-file-input"></label><br><br><br>
               <div class="btn">
                 
-                <span>Open camera</span>
+                
+                
                 
                 <label>
-                  <input type="file" id="camera-file-input"accept="image/png, image/jpeg" multiple>
+                  
+                  <input type="file" id="camera-file-input"accept="image/png, image/jpeg" multiple enctype="multipart/form-data" method="post">
+                  <span>Open camera</span>
+                  <span>Photos</span>
                 </label>
                 
                 
@@ -122,7 +126,7 @@
   
   
   <br>
-<div id="chkDiv" class="checkbox"> 
+<div id="chkDiv" class="checkboxes"> 
 <label for="catForm ">Categories</label>
 <form id="catForm" name="Categories">
 </form>

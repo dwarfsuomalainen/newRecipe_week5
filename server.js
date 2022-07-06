@@ -17,6 +17,7 @@ const _ = require('lodash');
 const bodyParser = require('body-parser');
 const Recipes = require("./models/Recipes");
 const Category = require("./models/Category");
+const Images = require("./models/Images");
 const connect = require("http2");
 const mongoDB = "mongodb://127.0.0.1:27017/testdb";
 mongoose.connect(mongoDB);
@@ -24,6 +25,9 @@ mongoose.Promise = Promise;
 const db = mongoose.connection;   
 db.on("error", console.error.bind(console, "MongoDB connection error"));
 let recipesS = [];
+
+const multer  = require('multer')
+const upload = multer({ dest: 'images/' })
 
 
 //handlebars
@@ -111,39 +115,15 @@ app.post('/recipe/', (req, res, next)=> {
 
 //upload image
 app.use(formData.parse());    
-app.post('/images', async (req, res)=> {
-    //console.log(req);
-    console.log(req.files);
-    res.send(console.log('uploaded'));
-    //res.redirect('/');
-    /*try {
-        if(!req.files){
-            res.send({
-                status: false,
-                message: 'fail!'
-            });
-        } else {
-            _.forEach(_.keysIn(req.files), (key) => {
-                let photo = req.files[key];
-                photo.mv('./image'+ photo.name);
-
-                data.push({
-                    name: photo.name,
-                    mimetype: photo.mimetype,
-                    size: photo.size
-                });
-            });
-        
-            res.send({
-                status: true,
-                message: 'uploaded',
-                data: data
-            });
-        }
-
-        } catch (err) {
-            res.status(500).send(err);
-    }*/
+app.post('/images', upload.array(), (req, res, next) => { 
+     new Images({name: req.body.filename,
+                encoding: req.body.encoding,
+                mimetype:req.body.mimetype,
+                buffer: req.body.buffer
+            }).save((err) => {
+                if(err) return next (err);
+                return res.send(req.body);
+            }); 
 })
     
 
@@ -159,6 +139,7 @@ app.get('/category/', (req, res, next)=>{
          console.log(res.json() + "line 154");
     }});
 })
+
 
 const port = process.env.port || 1234;
 
