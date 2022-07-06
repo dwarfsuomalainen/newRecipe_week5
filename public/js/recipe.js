@@ -270,6 +270,7 @@ async function fetchCategory() {
         //chkBox.setAttribute("onclick","disableCheckBox(this)"); // - related to function disableCheckBox
         let span1 = document.createElement('span');
         let catN = categoryRec[count].name;
+        chkBox.innerHTML=categoryRec[count].name;
         console.log(catN);
         span1.innerHTML = catN;
         pCat.appendChild(lbl);
