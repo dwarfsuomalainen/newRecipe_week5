@@ -212,16 +212,32 @@ async function fetchCategory() {
         for (var count in categoryRec) {
         let catChk = document.getElementById("catForm");
         console.log(catChk);
-        catChk.setAttribute("style", "color: green ; font-size: 150%");
+        let pCat = document.createElement("p");
+        let lbl = document.createElement("label");
+        let chkBox = document.createElement('input');
+        chkBox.type="checkbox";
+        chkBox.name="category";
+        chkBox.id = "cat"+[count];
+        chkBox.setAttribute("onclick","disableCheckBox(this)");
+        let span1 = document.createElement('span');
+        let catN = categoryRec[count].name;
+        console.log(catN);
+        span1.innerHTML = catN;
+        pCat.appendChild(lbl);
+        lbl.appendChild(chkBox);
+        lbl.appendChild(span1);
+        catChk.appendChild(pCat);
+
+
+        //catChk.setAttribute("style", "color: green ; font-size: 150%");
         //let btn22 = document.createElement('button');
-        let chkBox = document.createElement("input");
+        /*lbl.setAttribute ("for", "cat"+[count]);
+        lbl.innerHTML = "category!";
+        let chkBox = document.createElement('input');
         chkBox.setAttribute("onclick","disableCheckBox(this)");
         chkBox.type = 'checkbox';
-        let lbl = document.createElement("label");
         chkBox.id = "cat"+[count];
-        lbl.setAttribute ("for", "cat"+[count]);
-        lbl.innerHTML = "category!"
-        chkBox.appendChild(lbl);
+        catChk.appendChild(lbl);
         chkBox.value = categoryRec[count].name + '<br/>';
         let span1 = document.createElement('span');
         span1.innerHTML = categoryRec[count].name;
@@ -231,11 +247,8 @@ async function fetchCategory() {
         //catChk.getElementsByTagName("span").innerHTML = categoryRec[count].name;
         let divchk = document.getElementById("chkDiv");
         console.log(divchk);
-        divchk.appendChild(catChk);
-
-       
-        console.log(catChk);
-        //console.log(chkBox);
+        divchk.appendChild(catChk);*
+        console.log(chkBox);*/
      
     }
     let catOne = document.getElementById("catOne");

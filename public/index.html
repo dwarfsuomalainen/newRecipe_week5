@@ -11,9 +11,9 @@
       <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+      <link rel="stylesheet" type="text/css" href="./stylesheets/styles.css"/>
 </head>
-<script src="./js/recipe.js"></script>
+
 <body>
 
     <script type="text/javascript" src="js/materialize.min.js"></script>
@@ -79,19 +79,21 @@
 
 
             <div class="file-field-input">
-                <label for="image-input"></label><br><br><br>
+                <label for="camera-file-input"></label><br><br><br>
               <div class="btn">
                 
                 <span>Open camera</span>
                 
+                <label>
+                  <input type="file" id="camera-file-input"accept="image/png, image/jpeg" multiple>
+                </label>
                 
-                <input type="file" id="camera-file-input"accept="image/png, image/jpeg" multiple>
                 
               </div>
-              <div class="file-path-wrapper">
+              <!--<div class="file-path-wrapper">
                 <br><br><br>
                 <input class="file-path validate" type="text" placeholder="Upload one or more files">
-              </div>
+              </div>-->
             </div>
           </form>
         
@@ -117,12 +119,12 @@
       <span></span>
     </label>
   </p>-->
-<div id="chkDiv"> 
+  
+  
+  <br>
+<div id="chkDiv" class="checkbox"> 
 <label for="catForm ">Categories</label>
 <form id="catForm" name="Categories">
-  <label for="catThree">checkbox</label>
-    <input type="checkbox" name="category" id="catThree" onclick="disableCheckBox(this)"/>
-    <span>catatatatta</span>
 </form>
 </div>
 
@@ -137,6 +139,7 @@
     
     </div>
     </div>
-    <link rel="stylesheet" type="text/css" href="./stylesheets/styles.css"/>
+    <script src="./js/recipe.js"></script>
+    
     </body>
 </html>
