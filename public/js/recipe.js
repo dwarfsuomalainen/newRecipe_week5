@@ -137,7 +137,7 @@ console.log(files);
 formData.append('camera-file-input', files[img]);
 }
 console.log(files);
-await fetch('/images', {method: 'POST', body: formData.body});
+await fetch('/images', {method: 'POST', body: formData});
 
 for (const valueFormdata of formData.values()) {
     console.log(valueFormdata);}

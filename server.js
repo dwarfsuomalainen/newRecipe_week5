@@ -27,6 +27,7 @@ db.on("error", console.error.bind(console, "MongoDB connection error"));
 let recipesS = [];
 
 const multer  = require('multer');
+const { count } = require("console");
 const storage = multer.diskStorage({
 destination: (req,file, cb) => {
     cb(null, './images')
@@ -122,18 +123,22 @@ app.post('/recipe/', (req, res, next)=> {
 });
 
 //upload image
-app.use(formData.parse());    
 
+//app.use(formData.parse());    
 app.post('/images', upload.array('camera-file-input', 5), function (req, res) { 
-    console.log(req.files)
-    console.log(req);
-    new Images({name: req.files.filename,
-        encoding: req.files.encoding,
-        mimetype:req.files.mimetype,
-        buffer: req.files.buffer
+    //console.log(req.keys + "line130")
+    console.log(req.files);
+    //console.log(arr);
+    for (let i= 0; i < req.files.length; i++)    
+        new Images({name: req.files[i].filename,
+        encoding: req.files[i].encoding,
+        mimetype:req.files[i].mimetype,
+        buffer: req.files[i].buffer
     }).save((err) => {
         if(err) return next (err);
-        return res.send(req.body);});
+        return res.send("uploaded");})
+          
+    
     //res.send(req.files);
 })
 
