@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 let categoryShema = new Schema({
     name: String
-}, {collection: "category"});
+}, {collection: "categories"});
 
 
-module.exports = mongoose.model("Category", categoryShema);
+module.exports = mongoose.model("Categories", categoryShema);
