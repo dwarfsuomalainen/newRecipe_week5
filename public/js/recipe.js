@@ -134,11 +134,13 @@ let files = photos.files;
 
 for (let img=0; img < files.length; img++) {
 console.log(files);
-formData.append("images", files[img]);
+formData.append('camera-file-input', files[img]);
 }
 console.log(files);
-await fetch('/images', {method: 'POST', body: formData});
-console.log(formData);
+await fetch('/images', {method: 'POST', body: formData.body});
+
+for (const valueFormdata of formData.values()) {
+    console.log(valueFormdata);}
 
 //var upload = new FormData(photos);
 }

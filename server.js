@@ -26,8 +26,16 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error"));
 let recipesS = [];
 
-const multer  = require('multer')
-const upload = multer({ dest: 'images/' })
+const multer  = require('multer');
+const storage = multer.diskStorage({
+destination: (req,file, cb) => {
+    cb(null, './images')
+},
+filename: (req, file, cb) => {
+    cb(null, file.originalname)  
+}
+})
+const upload = multer({ storage: storage })
 
 
 //handlebars
@@ -111,20 +119,34 @@ app.post('/recipe/', (req, res, next)=> {
    //res.redirect('/');
    //res.send(req.body);*/
    
-})
+});
 
 //upload image
 app.use(formData.parse());    
-app.post('/images', upload.array(), (req, res, next) => { 
-     new Images({name: req.body.filename,
+
+app.post('/images', upload.array('camera-file-input', 5), function (req, res) { 
+    console.log(req.files)
+    console.log(req);
+    new Images({name: req.files.filename,
+        encoding: req.files.encoding,
+        mimetype:req.files.mimetype,
+        buffer: req.files.buffer
+    }).save((err) => {
+        if(err) return next (err);
+        return res.send(req.body);});
+    //res.send(req.files);
+})
+
+
+     /*new Images({name: req.body.filename,
                 encoding: req.body.encoding,
                 mimetype:req.body.mimetype,
                 buffer: req.body.buffer
             }).save((err) => {
                 if(err) return next (err);
                 return res.send(req.body);
-            }); 
-})
+            }); */
+
     
 
 // Categories 
@@ -138,7 +160,7 @@ app.get('/category/', (req, res, next)=>{
         console.log(res.body);
          console.log(res.json() + "line 154");
     }});
-})
+});
 
 
 const port = process.env.port || 1234;
