@@ -125,9 +125,9 @@ function addInstruction(){
 
 let submitUpload = document.getElementById('submit');
 submitUpload.addEventListener('click', uploadPhoto,);
-
+let imagesArr = [];
 async function uploadPhoto(){
-  
+ 
 let formData = new FormData();
 let photos = document.getElementById('camera-file-input');
 let files = photos.files;
@@ -135,11 +135,16 @@ let files = photos.files;
 for (let img=0; img < files.length; img++) {
 console.log(files);
 formData.append('camera-file-input', files[img]);
+//imagesArr.push(files[img]._id);
 }
 console.log(files);
-await fetch('/images', {method: 'POST', body: formData});
+let ImagesIds = await fetch('/images', {method: 'POST', body: formData})
+.then(response => response)
+//.then(body => body.json())
 
-for (const valueFormdata of formData.values()) {
+console.log(ImagesIds);
+
+for (const valueFormdata of formData.values()) { 
     console.log(valueFormdata);}
 
 //var upload = new FormData(photos);
@@ -150,14 +155,16 @@ document.getElementById("submit").addEventListener('click', async (event) => { e
     console.log(ingrArr);
     console.log(insArr);
     console.log(categories);
+    console.log(imagesArr);
     checked();
     const res = await fetch('/recipe/', {
         method: 'POST',
         headers: {'content-type': 'application/json'},
-        body: JSON.stringify({name: RecipeName.value, ingredients: ingrArr, instructions: insArr, categories: categories})
+        body: JSON.stringify({name: RecipeName.value, ingredients: ingrArr, instructions: insArr, categories: categories, images: imagesArr})
     });
     RecipeName.value = "";
     categories = [];
+    imagesArr = [];
     uncheck();
 
 });

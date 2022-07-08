@@ -27,15 +27,18 @@ db.on("error", console.error.bind(console, "MongoDB connection error"));
 let recipesS = [];
 
 const multer  = require('multer');
-const { count } = require("console");
-const storage = multer.diskStorage({
+const { toArray } = require("lodash");
+const { stringify } = require("querystring");
+const { NONAME } = require("dns");
+/*const storage = multer.diskStorage({
 destination: (req,file, cb) => {
     cb(null, './images')
 },
 filename: (req, file, cb) => {
     cb(null, file.originalname)  
 }
-})
+})*/
+const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
 
 
@@ -124,23 +127,34 @@ app.post('/recipe/', (req, res, next)=> {
 
 //upload image
 
-//app.use(formData.parse());    
-app.post('/images', upload.array('camera-file-input', 5), function (req, res) { 
+//app.use(formData.parse()); 
+// this creates objects to the collection images with a loop from an array   
+/*app.post('/images', upload.array('camera-file-input', 5), function (req, res) { 
     //console.log(req.keys + "line130")
     console.log(req.files);
     //console.log(arr);
-    for (let i= 0; i < req.files.length; i++)    
-        new Images({name: req.files[i].filename,
-        encoding: req.files[i].encoding,
-        mimetype:req.files[i].mimetype,
-        buffer: req.files[i].buffer
-    }).save((err) => {
+    var arrTosend = [];
+    let response1 ;
+    for (let i= 0; i < req.files.length; i++)
+            new Images({name: req.files[i].originalname,
+            encoding: req.files[i].encoding,
+            mimetype:req.files[i].mimetype,
+            buffer: req.files[i].buffer}).save((err) => {
         if(err) return next (err);
-        return res.send("uploaded");})
-          
-    
-    //res.send(req.files);
-})
+        //let response1 = 
+        //console.log(docInserted);
+        response1 = Images.find({}).sort( { "_id": -1 } ).limit(1);
+        let resp1 = response1;
+        //arrTosend.push(resp1[i]);
+        //console.log(resp1);
+        //console.log(arrTosend + " 148 ");
+        
+    })
+        res.send(response1);
+        //console.log(arrTosend + " 154 ");
+        
+        
+})*/
 
 
      /*new Images({name: req.body.filename,
@@ -152,7 +166,36 @@ app.post('/images', upload.array('camera-file-input', 5), function (req, res) {
                 return res.send(req.body);
             }); */
 
+
+// this creates documents to collection images and return ids of created documents
+
+app.post('/images', upload.array('camera-file-input', 5), function (req,res) {
+    let response1= [];
+    let response2= []; 
+    for (let i= 0; i < req.files.length; i++){
+        let response2= [];
+        let obj = {name: req.files[i].originalname,
+            encoding: req.files[i].encoding,
+            mimetype:req.files[i].mimetype,
+            buffer: req.files[i].buffer};
+            response1.push(obj);
+    };
+    Images.insertMany(response1, (error,res) => {
+        if(error) throw error;
+        for (let i=0; i< res.length; i++) {
+        console.log(res[i]._id + "186");
+        let idS = res[i]._id;
+        response2.push(idS);
+        }
+        console.log(response2 + "189");
+        return response2;
+    });
+    //console.log(res.json());
     
+    res.send();
+})
+
+
 
 // Categories 
 app.get('/category/', (req, res, next)=>{
@@ -163,11 +206,27 @@ app.get('/category/', (req, res, next)=>{
         else { res.status(404).send("ERROR");
         res.send(res.body);
         console.log(res.body);
-         console.log(res.json() + "line 154");
+        console.log(res.json() + "line 206");
     }});
 });
 
 
+//Image ids 
+app.get('/id/', (req, res, next)=>{
+
+    Images.find({}, (err,name) => {
+        if (err) return next(err);
+        if (name.length > 0) {return res.json(name)}
+        else { res.status(404).send("ERROR");
+        res.send(json);
+        console.log(res.body);
+        console.log(res.json() + "line 221");
+    }});
+
+});
+
 const port = process.env.port || 1234;
 
 app.listen(port, ()=> console.log(`Server running on port ${port}`));
+
+
