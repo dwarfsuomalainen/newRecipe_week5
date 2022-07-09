@@ -65,9 +65,9 @@ app.use(bodyParser.json());
  //   name: String}
  // )
  
- app.get('/favicon.ico', function(req, res) {
+ /*app.get('/favicon.ico', function(req, res) {
     res.send(204);
-});
+});*/
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'));
         });
