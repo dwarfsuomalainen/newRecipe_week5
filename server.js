@@ -171,29 +171,43 @@ app.post('/recipe/', (req, res, next)=> {
 
 app.post('/images', upload.array('camera-file-input', 5), function (req,res) {
     let response1= [];
-    let response2= []; 
+    let response2= {}; 
     for (let i= 0; i < req.files.length; i++){
-        let response2= [];
+        let resp = response2;
         let obj = {name: req.files[i].originalname,
             encoding: req.files[i].encoding,
             mimetype:req.files[i].mimetype,
             buffer: req.files[i].buffer};
             response1.push(obj);
     };
-    Images.insertMany(response1, (error,res) => {
+    Images.insertMany(response1, function(error,res) {
         if(error) throw error;
         for (let i=0; i< res.length; i++) {
         console.log(res[i]._id + "186");
         let idS = res[i]._id;
-        response2.push(idS);
+        response2[i] = (idS);
         }
-        console.log(response2 + "189");
-        return response2;
-    });
-    //console.log(res.json());
+        console.log(response2);
+        return(response2);
+       
+       /*if(error) throw error;
+       let imgs = Images.find({}, (err,res) => {
+        if (err) return next(err);
+        }).sort({"_id" : -1}).limit(1);
+
+        for (let i=0; i< imgs.length; i++){
+         response2.push.imgs[i]._id;
+         console.log(response2 + "198");
+        console.log(res);
+        }*/
+
+        
+    //res.append('content-type', 'application/json');
     
-    res.send();
 })
+console.log(response2);
+res.send(response2);
+});
 
 
 
@@ -216,7 +230,7 @@ app.get('/id/', (req, res, next)=>{
 
     Images.find({}, (err,name) => {
         if (err) return next(err);
-        if (name.length > 0) {return res.json(name)}
+        if (name.length > 0) {return res.json(name[0]._id)}   // !!!!! [0]
         else { res.status(404).send("ERROR");
         res.send(json);
         console.log(res.body);
