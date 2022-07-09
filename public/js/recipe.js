@@ -112,6 +112,7 @@ console.log(btn2);
 btn2.addEventListener('click', addInstruction);
 let insArr = [];
 
+
 function addInstruction(){
 
     let RecipeInstructions = document.getElementById("instructions-text");
@@ -123,61 +124,12 @@ function addInstruction(){
     console.log(insArr);}       
 }
 
-let submitUpload = document.getElementById('submit');
-submitUpload.addEventListener('click', uploadPhoto,);
-let imagesArr = [];
-async function uploadPhoto(){
- 
-let formData = new FormData();
-let photos = document.getElementById('camera-file-input');
-let files = photos.files;
 
-for (let img=0; img < files.length; img++) {
-console.log(files);
-formData.append('camera-file-input', files[img]);
-//imagesArr.push(files[img]._id);
-}
-console.log(files);
-let ImagesIds = await fetch('/images', {method: 'POST', body: formData})
-.then(response => response)
-//.then(body => body.json())
 
-console.log(ImagesIds);
 
-for (const valueFormdata of formData.values()) { 
-    console.log(valueFormdata);}
 
 //var upload = new FormData(photos);
-}
-document.getElementById("submit").addEventListener('click', async (event) => { event.preventDefault();
-    
-    let RecipeName = document.getElementById('name-text');
-    console.log(ingrArr);
-    console.log(insArr);
-    console.log(categories);
-    console.log(imagesArr);
-    checked();
-    const res = await fetch('/recipe/', {
-        method: 'POST',
-        headers: {'content-type': 'application/json'},
-        body: JSON.stringify({name: RecipeName.value, ingredients: ingrArr, instructions: insArr, categories: categories, images: imagesArr})
-    });
-    RecipeName.value = "";
-    categories = [];
-    imagesArr = [];
-    uncheck();
 
-});
-// this function clears the checkboxes on Submit
-function uncheck() {
-    let box = document.querySelectorAll('.checkbox');
-    console.log(box);
-    for (let i=0; i< box.length; i++ ) {
-        if (box[i].checked = true) { 
-            box[i].checked = false;}
-             else {return;}
-    }
-}
 
 // this function creates list of id's of categories for the POST new recipe
     let categories = [];
@@ -216,6 +168,32 @@ toIndex(findRecipe[0].name,findRecipe[0].ingredients,findRecipe[0].instructions)
 }
 
 
+//let submitUpload = document.getElementById('submit');
+//submitUpload.addEventListener('click', uploadPhoto);
+let imagesArr = [];
+async function uploadPhoto(){
+let formData = new FormData();
+let photos = document.getElementById('camera-file-input');
+let files = photos.files;
+
+for (let img=0; img < files.length; img++) {
+console.log(files);
+formData.append('camera-file-input', files[img]);
+//imagesArr.push(files[img]._id);
+}
+console.log(files);
+let ImagesIds = await fetch('/images', {method: 'POST', body: formData})
+.then(response => response.json())
+console.log(ImagesIds);
+console.log(ImagesIds[0]);
+console.log(files.length);
+for (i=0; i < files.length; i++) {
+imagesArr.push(ImagesIds[i]);
+console.log(imagesArr);
+}
+for (const valueFormdata of formData.values()) { 
+    console.log(valueFormdata);}
+}
 // Categories 
 
 // this function disables other checkboxes if one is picked
@@ -289,6 +267,36 @@ async function fetchCategory() {
     
     }
        
+// Submit
+document.getElementById("submit").addEventListener('click', async (event) => { event.preventDefault();
+    
+    await uploadPhoto();
+    let RecipeName = document.getElementById('name-text');
+    console.log(ingrArr);
+    console.log(insArr);
+    console.log(categories);
+    console.log(imagesArr);
+    checked();
+    const res = await fetch('/recipe/', {
+        method: 'POST',
+        headers: {'content-type': 'application/json'},
+        body: JSON.stringify({name: RecipeName.value, ingredients: ingrArr, instructions: insArr, categories: categories, images: imagesArr})
+    });
+    RecipeName.value = "";
+    categories = [];
+    imagesArr = [];
+    uncheck();
 
+});
+// this function clears the checkboxes on Submit
+function uncheck() {
+    let box = document.querySelectorAll('.checkbox');
+    console.log(box);
+    for (let i=0; i< box.length; i++ ) {
+        if (box[i].checked = true) { 
+            box[i].checked = false;}
+             else {return;}
+    }
+}
 
 }

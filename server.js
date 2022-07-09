@@ -25,11 +25,12 @@ mongoose.Promise = Promise;
 const db = mongoose.connection;   
 db.on("error", console.error.bind(console, "MongoDB connection error"));
 let recipesS = [];
-
+const async = require("async");
 const multer  = require('multer');
-const { toArray } = require("lodash");
+const { toArray, reject, values } = require("lodash");
 const { stringify } = require("querystring");
 const { NONAME } = require("dns");
+const { resolve } = require("path");
 /*const storage = multer.diskStorage({
 destination: (req,file, cb) => {
     cb(null, './images')
@@ -64,7 +65,9 @@ app.use(bodyParser.json());
  //   name: String}
  // )
  
-
+ app.get('/favicon.ico', function(req, res) {
+    res.send(204);
+});
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'));
         });
@@ -99,7 +102,8 @@ app.post('/recipe/', (req, res, next)=> {
                 new Recipes({name: req.body.name,
                             ingredients: req.body.ingredients,
                             instructions: req.body.instructions,
-                            categories: req.body.categories
+                            categories: req.body.categories,
+                            images: req.body.images
                             }).save((err) => {
                                 if(err) return next (err);
                                 return res.send(req.body);
@@ -166,30 +170,35 @@ app.post('/recipe/', (req, res, next)=> {
                 return res.send(req.body);
             }); */
 
-
-// this creates documents to collection images and return ids of created documents
-
-app.post('/images', upload.array('camera-file-input', 5), function (req,res) {
-    let response1= [];
-    let response2= {}; 
+           
+/*// this creates documents to collection images and return ids of created documents
+app.post('/images', upload.array('camera-file-input', 5), (req,res) => {
+let response1= [];
+let response2= {};
     for (let i= 0; i < req.files.length; i++){
-        let resp = response2;
+        //let resp = response2;
         let obj = {name: req.files[i].originalname,
             encoding: req.files[i].encoding,
             mimetype:req.files[i].mimetype,
             buffer: req.files[i].buffer};
-            response1.push(obj);
-    };
-    Images.insertMany(response1, function(error,res) {
+            response1.push(obj);}
+           
+    Images.insertMany(response1, function(error,response) {
         if(error) throw error;
-        for (let i=0; i< res.length; i++) {
-        console.log(res[i]._id + "186");
-        let idS = res[i]._id;
+        for (let i=0; i< response.length; i++) {
+        console.log(response[i]._id + "186");
+        let idS = response[i]._id;
         response2[i] = (idS);
         }
+        var promise1 = new Promise((resolve, reject) => {
+            resolve(response2);
+        })
+        promise1.then((value) => { 
+        console.log(value);
+        res.json(value)
+    });
         console.log(response2);
-        return(response2);
-       
+        console.log(res);      
        /*if(error) throw error;
        let imgs = Images.find({}, (err,res) => {
         if (err) return next(err);
@@ -199,16 +208,46 @@ app.post('/images', upload.array('camera-file-input', 5), function (req,res) {
          response2.push.imgs[i]._id;
          console.log(response2 + "198");
         console.log(res);
-        }*/
-
-        
-    //res.append('content-type', 'application/json');
-    
+        }
 })
-console.log(response2);
-res.send(response2);
-});
+});*/
 
+app.post("/images", upload.array("camera-file-input", 5), (req, res) => {
+    let response1 = [];
+    let response2 = {};
+    for (let i = 0; i < req.files.length; i++) {
+      //let resp = response2;
+      let obj = {
+        name: req.files[i].originalname,
+        encoding: req.files[i].encoding,
+        mimetype: req.files[i].mimetype,
+        buffer: req.files[i].buffer,
+      };
+      response1.push(obj);
+    }
+  
+    Images.insertMany(response1, function (error, response) {
+      if (error) throw error;
+      for (let i = 0; i < response.length; i++) {
+        console.log(response[i]._id + "186");
+        let idS = response[i]._id;
+        response2[i] = idS;
+      }
+  
+      res.json(response2);
+  
+      /*if(error) throw error;
+             let imgs = Images.find({}, (err,res) => {
+              if (err) return next(err);
+              }).sort({"_id" : -1}).limit(1);
+      
+              for (let i=0; i< imgs.length; i++){
+               response2.push.imgs[i]._id;
+               console.log(response2 + "198");
+              console.log(res);
+              }*/
+    });
+  });
 
 
 // Categories 
