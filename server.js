@@ -1,8 +1,4 @@
 
-
-
-
-
 const mongoose = require("mongoose");
 const express = require("express");
 const path = require('path');
@@ -41,9 +37,6 @@ filename: (req, file, cb) => {
 })*/
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
-
-
-
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
@@ -268,7 +261,6 @@ app.get('/category/', (req, res, next)=>{
 
 //Image ids 
 app.get('/id/', (req, res, next)=>{
-
     Images.find({}, (err,name) => {
         if (err) return next(err);
         if (name.length > 0) {return res.json(name[0]._id)}   // !!!!! [0]
