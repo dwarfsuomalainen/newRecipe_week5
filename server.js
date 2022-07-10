@@ -213,6 +213,7 @@ let response2= {};
 })
 });*/
 
+
 app.post("/images", upload.array("camera-file-input", 5), (req, res) => {
     let response1 = [];
     let response2 = {};
