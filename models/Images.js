@@ -5,7 +5,7 @@ let imagesShema = new Schema({
     name: String,
     encoding: String,
     mimetype: String,
-    buffer: String
+    buffer: Buffer
 });
 
 module.exports = mongoose.model("Images", imagesShema);
