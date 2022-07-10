@@ -260,14 +260,15 @@ app.get('/category/', (req, res, next)=>{
 
 
 //Image ids 
-app.get('/id/', (req, res, next)=>{
-    Images.find({}, (err,name) => {
+app.get('/images/:imageId', (req, res, next)=>{
+    let idfromDB = req.params.imageId
+    Images.find({_id: idfromDB}, (err,_id) => {
         if (err) return next(err);
-        if (name.length > 0) {return res.json(name[0]._id)}   // !!!!! [0]
+        if (_id.length > 0) {return res.send(res.buffer)}   // !!!!! [0]
         else { res.status(404).send("ERROR");
-        res.send(json);
+        //res.send(json);
         console.log(res.body);
-        console.log(res.json() + "line 221");
+        console.log(res + "line 271");
     }});
 
 });

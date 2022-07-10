@@ -1,11 +1,16 @@
-//const { json, response } = require("express");
+//const response = require("express");
 //const { data } = require("jquery");
 //const parseJSON  = require("jquery");
+
+//const response  = require("express");
+//const db = require("../../models/Recipes");
 
 //const { application, response } = require("express");
 
 
 //const { allowedNodeEnvironmentFlags } = require("process");
+
+
 let recipe_fetched = document.createElement('div');
 
 if(document.readyState !== "loading") {
@@ -164,10 +169,32 @@ let findRecipe = await fetch('/recipe/'+ food, {
     headers: {'content-type': 'application/json'}})
     .then(response => response.json());
 console.log(findRecipe[0].name);
+
 let imagefromDB = (findRecipe[0].images);  // getting image id from db
+fetchPhotoFromDB(imagefromDB);
 toIndex(findRecipe[0].name,findRecipe[0].ingredients,findRecipe[0].instructions);
 }
 
+//Fetching photo from db
+async function fetchPhotoFromDB(idFromSearch){
+    console.log(idFromSearch);
+    let dbToDiv = document.getElementById("images");
+    for (i = 0; i < idFromSearch.length; i++){
+        let photosTOindex = await fetch('/images/' + idFromSearch[i] ,{
+            method: "GET",
+            headers: {'content-type': "image/jpeg,image/png"},
+            headers: {"Content-Disposition": "attachment"}
+                    })
+                    
+                    .then (response => response)
+                    console.log(photosTOindex);
+                    console.log(idFromSearch[i]);
+                    dbToDiv.appendChild(photosTOindex);
+                    
+                    
+    }
+    
+}
 
 //let submitUpload = document.getElementById('submit');
 //submitUpload.addEventListener('click', uploadPhoto);
