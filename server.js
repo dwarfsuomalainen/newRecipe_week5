@@ -42,6 +42,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
+
 //handlebars
 //app.engine('handlebars', exphbs.engine({defaultLayout: 'main'}));
 //app.set('view engine', 'handlebars');
