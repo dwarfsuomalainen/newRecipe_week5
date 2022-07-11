@@ -35,9 +35,12 @@ filename: (req, file, cb) => {
     cb(null, file.originalname)  
 }
 })*/
+
+
 const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
 const app = express();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
 app.use(bodyParser.json());
@@ -63,10 +66,11 @@ app.use(bodyParser.json());
  /*app.get('/favicon.ico', function(req, res) {
     res.send(204);
 });*/
-app.get('/', (req, res) => {
+    app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'));
-        });
-//static folder 
+    });
+
+    //static folder 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/recipe/:food', (req, res, next)=> {
@@ -99,7 +103,7 @@ app.post('/recipe/', (req, res, next)=> {
                             ingredients: req.body.ingredients,
                             instructions: req.body.instructions,
                             categories: req.body.categories,
-                            //images: req.body.images
+                            images: req.body.images
                             }).save((err) => {
                                 if(err) return next (err);
                                 return res.send(req.body);
@@ -230,7 +234,8 @@ app.post("/images", upload.array("camera-file-input", 5), (req, res) => {
         let idS = response[i]._id;
         response2[i] = idS;
       }
-  
+      console.log(response1); 
+      console.log(response2); 
       res.json(response2);
   
       /*if(error) throw error;
