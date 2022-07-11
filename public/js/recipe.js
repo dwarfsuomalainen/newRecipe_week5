@@ -2,6 +2,8 @@
 //const { data } = require("jquery");
 //const parseJSON  = require("jquery");
 
+//const { response } = require("express");
+
 //const response  = require("express");
 //const db = require("../../models/Recipes");
 
@@ -168,10 +170,11 @@ let findRecipe = await fetch('/recipe/'+ food, {
     method: "GET",
     headers: {'content-type': 'application/json'}})
     .then(response => response.json());
-console.log(findRecipe[0].name);
+    console.log(findRecipe);
+    console.log(findRecipe[0].name);
 
 let imagefromDB = (findRecipe[0].images);  // getting image id from db
-fetchPhotoFromDB(imagefromDB);
+//fetchPhotoFromDB(imagefromDB);
 toIndex(findRecipe[0].name,findRecipe[0].ingredients,findRecipe[0].instructions);
 }
 

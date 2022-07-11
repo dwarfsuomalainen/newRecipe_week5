@@ -71,6 +71,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/recipe/:food', (req, res, next)=> {
     let nameSEARCH = req.params.food;
+    console.log(req.params.food)
     console.log(nameSEARCH + " line 50");
     Recipes.find({name: nameSEARCH}, (err, name) => {
         if (err) return next(err);
@@ -98,7 +99,7 @@ app.post('/recipe/', (req, res, next)=> {
                             ingredients: req.body.ingredients,
                             instructions: req.body.instructions,
                             categories: req.body.categories,
-                            images: req.body.images
+                            //images: req.body.images
                             }).save((err) => {
                                 if(err) return next (err);
                                 return res.send(req.body);
