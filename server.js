@@ -95,7 +95,7 @@ app.post('/recipe/', (req, res, next)=> {
                             instructions: req.body.instructions,
                             categories: req.body.categories,
                             images: req.body.images
-                            }).save((err) => {
+                            }).save((err) => {console.log(req.body);
                                 if(err) return next (err);
                                 return res.send(req.body);
                             });      
