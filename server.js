@@ -246,10 +246,11 @@ app.post("/images", upload.array("camera-file-input", 5), (req, res) => {
 app.get('/category/', (req, res, next)=>{
 
     Category.find({}, (err,name) => {
-        let emptyArr =[];
+        let emptyArr = []
         if (err) return next(err);
         if (name.length > 0) {return res.json(name)}
-        else { res.send(emptyArr);
+        if (name.length === 0) {return emptyArr }
+        else { res.status(404).send("ERROR");
         res.send(res.body);
         console.log(res.body);
         console.log(res.json() + "line 206");
