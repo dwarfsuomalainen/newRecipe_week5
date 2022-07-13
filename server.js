@@ -4,11 +4,6 @@ const express = require("express");
 const path = require('path');
 const recipes = require('./Data_recipes');
 const uuid = require('uuid');
-//const exphbs = require('express-handlebars');
-const { json } = require("body-parser");
-const formData = require('express-form-data');
-const fileUpload = require('express-fileupload');
-const { data } = require("jquery");
 const _ = require('lodash');
 const bodyParser = require('body-parser');
 const Recipes = require("./models/Recipes");
@@ -23,10 +18,6 @@ db.on("error", console.error.bind(console, "MongoDB connection error"));
 let recipesS = [];
 const async = require("async");
 const multer  = require('multer');
-const { toArray, reject, values } = require("lodash");
-const { stringify } = require("querystring");
-const { NONAME } = require("dns");
-const { resolve } = require("path");
 /*const storage = multer.diskStorage({
 destination: (req,file, cb) => {
     cb(null, './images')
@@ -217,7 +208,6 @@ app.post("/images", upload.array("camera-file-input", 5), (req, res) => {
     let response1 = [];
     let response2 = {};
     for (let i = 0; i < req.files.length; i++) {
-      //let resp = response2;
       let obj = {
         name: req.files[i].originalname,
         encoding: req.files[i].encoding,
