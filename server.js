@@ -71,7 +71,8 @@ app.get('/recipe/:food', (req, res, next)=> {
     console.log(nameSEARCH + " line 50");
     Recipes.find({name: nameSEARCH}, (err, name) => {
         if (err) return next(err);
-        if (name.length > 0) {return res.json(name)}
+        if (name.length > 0) {
+            console.log(name[0]); return res.json(name[0])}
     else { res.status(404).send("There is no recipies of "+ nameSEARCH +" in a cookBook");
 }
 });

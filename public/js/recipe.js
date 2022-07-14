@@ -68,11 +68,11 @@ async function fetchPasta() {
 let getPasta = await fetch('/recipe/pasta');
 let recipePasta = await getPasta.json();
 console.log(recipePasta);
-let nameI = (recipePasta[0].name);
+let nameI = (recipePasta.name);
 //console.log(nameI);
-let ingredientsI = recipePasta[0].ingredients;
-let instructionsI = recipePasta[0].instructions;
-//let imagesI = recipePasta[0].images;
+let ingredientsI = recipePasta.ingredients;
+let instructionsI = recipePasta.instructions;
+let imagesI = recipePasta.images;
 //console.log(imagesI);
 toIndex(nameI, ingredientsI, instructionsI);
 } 
@@ -166,11 +166,11 @@ let findRecipe = await fetch('/recipe/'+ food, {
     headers: {'content-type': 'application/json'}})
     .then(response => response.json());
     console.log(findRecipe);
-    console.log(findRecipe[0].name);
+    console.log(findRecipe.images);
 
-let imagefromDB = (findRecipe[0].images);  // getting image id from db
+let imagefromDB = (findRecipe.images);  // getting image id from db
 let b = fetchPhotoFromDB(imagefromDB);
-toIndex(findRecipe[0].name,findRecipe[0].ingredients,findRecipe[0].instructions,b);
+toIndex(findRecipe.name,findRecipe.ingredients,findRecipe.instructions,b);
 b="";
 }
 
