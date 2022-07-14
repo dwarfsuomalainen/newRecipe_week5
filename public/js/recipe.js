@@ -167,8 +167,8 @@ let findRecipe = await fetch('/recipe/'+ food, {
     console.log(findRecipe[0].name);
 
 let imagefromDB = (findRecipe[0].images);  // getting image id from db
-fetchPhotoFromDB(imagefromDB);
-toIndex(findRecipe[0].name,findRecipe[0].ingredients,findRecipe[0].instructions,imagefromDB);
+let b = fetchPhotoFromDB(imagefromDB);
+toIndex(findRecipe[0].name,findRecipe[0].ingredients,findRecipe[0].instructions,b);
 }
 
 //Fetching photo from db
