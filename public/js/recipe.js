@@ -1,16 +1,3 @@
-//const response = require("express");
-//const { data } = require("jquery");
-//const parseJSON  = require("jquery");
-
-//const { response } = require("express");
-
-//const response  = require("express");
-//const db = require("../../models/Recipes");
-
-//const { application, response } = require("express");
-
-
-//const { allowedNodeEnvironmentFlags } = require("process");
 
 
 let recipe_fetched = document.createElement('div');
@@ -85,16 +72,22 @@ let nameI = (recipePasta[0].name);
 //console.log(nameI);
 let ingredientsI = recipePasta[0].ingredients;
 let instructionsI = recipePasta[0].instructions;
+//let imagesI = recipePasta[0].images;
+//console.log(imagesI);
 toIndex(nameI, ingredientsI, instructionsI);
 } 
 
-function toIndex(x,y,p) {
+function toIndex(x,y,p,k) {
 let recipeName = document.getElementById('recipename');
 recipeName.innerHTML = x;
 let recipeIngr = document.getElementById('reciepeIngredients');
 recipeIngr.innerHTML = y;
 let recipeInstr = document.getElementById('recipeInstructions');
 recipeInstr.innerHTML = p;
+let imagesToIndex = document.getElementById('imagesToIndex');
+console.log(imagesToIndex);
+console.log(k);
+//imagesToIndex.appendChild(k);
 }
 
 
@@ -174,8 +167,8 @@ let findRecipe = await fetch('/recipe/'+ food, {
     console.log(findRecipe[0].name);
 
 let imagefromDB = (findRecipe[0].images);  // getting image id from db
-//fetchPhotoFromDB(imagefromDB);
-toIndex(findRecipe[0].name,findRecipe[0].ingredients,findRecipe[0].instructions);
+fetchPhotoFromDB(imagefromDB);
+toIndex(findRecipe[0].name,findRecipe[0].ingredients,findRecipe[0].instructions,imagefromDB);
 }
 
 //Fetching photo from db
@@ -185,14 +178,30 @@ async function fetchPhotoFromDB(idFromSearch){
     for (i = 0; i < idFromSearch.length; i++){
         let photosTOindex = await fetch('/images/' + idFromSearch[i] ,{
             method: "GET",
-            headers: {'content-type': "image/jpeg,image/png"},
-            headers: {"Content-Disposition": "attachment"}
-                    })
+            //headers:"Content-Disposition : inline",
+            //headers:"content-type :image/jpeg"
+            })
+            let data = await photosTOindex.arrayBuffer()       
+                    .then (response => { data = response.ArrayBuffer(); imgX.src="... " + btoa(data); })
+                    //console.log(photosTOindex);
+                    console.log(data);
+                    //console.log(idFromSearch[i]);
                     
-                    .then (response => response)
-                    console.log(photosTOindex);
-                    console.log(idFromSearch[i]);
-                    dbToDiv.appendChild(photosTOindex);
+                    //let Buffer = photosTOindex;
+                    //let a=photosTOindex.arrayBuffer();
+                    //let  bufferTOpic = toString(data);
+                    let bufferTOpic = btoa(data);
+                    //let b = encode(a);
+                    //console.log(b);
+                    console.log(bufferTOpic);
+
+                    let imgX = document.createElement("img");
+                    //imgX.setAttribute("Content-Disposition" , "attachment");
+                    //imgX.setAttribute("content-type", "image/jpeg")
+                    imgX.src= "data:image/jpeg;base64,"+ bufferTOpic;
+                    //imgX.innerHTML = dbToDiv;
+                    dbToDiv.appendChild(imgX);
+                    //dbToDiv.appendChild(photosTOindex);
                     
                     
     }
