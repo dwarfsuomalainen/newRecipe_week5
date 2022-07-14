@@ -178,27 +178,14 @@ async function fetchPhotoFromDB(idFromSearch){
     for (i = 0; i < idFromSearch.length; i++){
         let photosTOindex = await fetch('/images/' + idFromSearch[i] ,{
             method: "GET",
-            //headers:"Content-Disposition : inline",
-            //headers:"content-type :image/jpeg"
-            })
-            let data = await photosTOindex.arrayBuffer()       
-                    .then (response => { data = response.ArrayBuffer(); imgX.src="... " + btoa(data); })
-                    //console.log(photosTOindex);
-                    console.log(data);
-                    //console.log(idFromSearch[i]);
-                    
-                    //let Buffer = photosTOindex;
-                    //let a=photosTOindex.arrayBuffer();
-                    //let  bufferTOpic = toString(data);
-                    let bufferTOpic = btoa(data);
-                    //let b = encode(a);
-                    //console.log(b);
-                    console.log(bufferTOpic);
+            })   
+                    .then (response => response)
+                    console.log(photosTOindex);
 
                     let imgX = document.createElement("img");
                     //imgX.setAttribute("Content-Disposition" , "attachment");
                     //imgX.setAttribute("content-type", "image/jpeg")
-                    imgX.src= "data:image/jpeg;base64,"+ bufferTOpic;
+                    imgX.src= photosTOindex.url;
                     //imgX.innerHTML = dbToDiv;
                     dbToDiv.appendChild(imgX);
                     //dbToDiv.appendChild(photosTOindex);
