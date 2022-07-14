@@ -84,7 +84,7 @@ let recipeIngr = document.getElementById('reciepeIngredients');
 recipeIngr.innerHTML = y;
 let recipeInstr = document.getElementById('recipeInstructions');
 recipeInstr.innerHTML = p;
-let imagesToIndex = document.getElementById('imagesToIndex');
+let imagesToIndex = document.getElementById('images');
 console.log(imagesToIndex);
 console.log(k);
 //imagesToIndex.appendChild(k);
@@ -155,7 +155,9 @@ if (k.key === 'Enter')
     let c = bar.value;
     k.preventDefault();
     search(c);
-    bar.value = "";   
+    bar.value = "";
+    let del = document.getElementById('images');
+    del.innerHTML = "";
 }
 });
 async function search(food){
@@ -169,6 +171,7 @@ let findRecipe = await fetch('/recipe/'+ food, {
 let imagefromDB = (findRecipe[0].images);  // getting image id from db
 let b = fetchPhotoFromDB(imagefromDB);
 toIndex(findRecipe[0].name,findRecipe[0].ingredients,findRecipe[0].instructions,b);
+b="";
 }
 
 //Fetching photo from db
