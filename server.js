@@ -262,7 +262,6 @@ app.get('/category/', (req, res, next)=>{
 app.get('/images/:imageId', (req, res, next)=>{
     let idfromDB = req.params.imageId
     Images.findOne({_id: idfromDB}, (err,img) => {
-
         if (err) return next(err);
         else {
         res.setHeader('Content-Type', 'image/jpeg',

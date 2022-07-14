@@ -176,21 +176,9 @@ async function fetchPhotoFromDB(idFromSearch){
     console.log(idFromSearch);
     let dbToDiv = document.getElementById("images");
     for (i = 0; i < idFromSearch.length; i++){
-        let photosTOindex = await fetch('/images/' + idFromSearch[i] ,{
-            method: "GET",
-            })   
-                    .then (response => response)
-                    console.log(photosTOindex);
-
                     let imgX = document.createElement("img");
-                    //imgX.setAttribute("Content-Disposition" , "attachment");
-                    //imgX.setAttribute("content-type", "image/jpeg")
-                    imgX.src= photosTOindex.url;
-                    //imgX.innerHTML = dbToDiv;
-                    dbToDiv.appendChild(imgX);
-                    //dbToDiv.appendChild(photosTOindex);
-                    
-                    
+                    imgX.src= '/images/' + idFromSearch;
+                    dbToDiv.appendChild(imgX);      
     }
     
 }
