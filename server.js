@@ -265,7 +265,8 @@ app.get('/images/:imageId', (req, res, next)=>{
     Images.findOne({_id: idfromDB}, (err,img) => {
         if (err) return next(err);
         else {
-        res.setHeader('Content-Disposition', 'inline');
+        res.header('Content-Disposition', 'inline');
+        res.header('content-type', 'image/jpeg');
     }
     res.send(Buffer.from(img.buffer, 'binary'));
     });
