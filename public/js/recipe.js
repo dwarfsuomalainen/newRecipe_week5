@@ -183,7 +183,6 @@ async function fetchPhotoFromDB(idFromSearch){
                     imgX.src= '/images/' + idFromSearch;
                     dbToDiv.appendChild(imgX);      
     }
-    
 }
 
 //let submitUpload = document.getElementById('submit');
@@ -286,8 +285,8 @@ async function fetchCategory() {
     }
        
 // Submit
-document.getElementById("submit").addEventListener('click', async (event) => { event.preventDefault();
-    
+    document.getElementById("submit").addEventListener('click', async (event) => { 
+    event.preventDefault();
     await uploadPhoto();
     let RecipeName = document.getElementById('name-text');
     console.log(ingrArr);
@@ -303,6 +302,14 @@ document.getElementById("submit").addEventListener('click', async (event) => { e
     RecipeName.value = "";
     categories = [];
     imagesArr = [];
+    ingrArr =[];
+    insArr= [];
+
+    console.log(ingrArr);
+    console.log(insArr);
+    console.log(categories);
+    console.log(imagesArr);
+
     uncheck();
 
 });

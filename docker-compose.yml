@@ -1,0 +1,18 @@
+version: "3.3"
+services:
+  recipe-app-mongo1:
+    container_name: recipe-app-mongo1
+    image: recipe-app-mongo1
+    restart: always
+    build: .
+    ports:
+    - "1234:1234"
+    links:
+    - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27018:27017"
