@@ -10,7 +10,7 @@ const Recipes = require("./models/Recipes");
 const Category = require("./models/Category");
 const Images = require("./models/Images");
 const connect = require("http2");
-const mongoDB = "mongodb://mongo:27017/testdb";
+const mongoDB = "mongodb://127.0.0.1:27017/testdb";
 mongoose.connect(mongoDB);
 mongoose.Promise = Promise;
 const db = mongoose.connection;   
@@ -260,21 +260,18 @@ app.get('/category/', (req, res, next)=>{
 
 
 //Image ids 
-    app.get('/images/:imageId', (req, res, next)=>{
-        let idfromDB = req.params.imageId
-        Images.findOne({_id: idfromDB}, (err,img) => {
-            if (err) return next(err);
-            if (img)
-            {
-            res.header('Content-Disposition', 'inline');
-            res.header('content-type', 'image/jpeg');
-            res.send(Buffer.from(img.buffer, 'binary'));
-            }
-        else{res.status(404).send("no such an image")}
-        
-        });
-
+app.get('/images/:imageId', (req, res, next)=>{
+    let idfromDB = req.params.imageId
+    Images.findOne({_id: idfromDB}, (err,img) => {
+        if (err) return next(err);
+        else {
+        res.header('Content-Disposition', 'inline');
+        res.header('content-type', 'image/jpeg');
+    }
+    res.send(Buffer.from(img.buffer, 'binary'));
     });
+
+});
 
 const port = process.env.port || 1234;
 
